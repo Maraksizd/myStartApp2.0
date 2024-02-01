@@ -1,6 +1,7 @@
 ﻿//main fail
 using System;
 
+
 namespace myStartApp2._0
 {
 
@@ -41,14 +42,37 @@ namespace myStartApp2._0
 
                         Client client = Client.Create();
                         client.AddPayment(payment);
+
                         Console.WriteLine("Введіть 1 якщо ви хочете додати ще один показник");
                         Console.WriteLine("Введіть 2 якщо ви задоволенні роботою:");
                         isValid = Int32.Parse(Console.ReadLine());
                     }
+
+                    int permissionToSave = 0;
+
+                    Console.WriteLine("Зберегти данні?");
+                    Console.WriteLine("1-так");
+                    Console.WriteLine("2-ні");
+                    permissionToSave = Int32.Parse(Console.ReadLine());
+
+                    if (permissionToSave == 1)
+                    {
+
+                    }
+                    else if (permissionToSave == 2)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+
                     break;
+                    
 
                 case 2:
-
+                    //analitics
                     break;
 
                 default:
