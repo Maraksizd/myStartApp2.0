@@ -24,12 +24,5 @@ namespace myStartApp2._0
 
             return client;
         }
-
-        public void AddPayment(Payment payment)
-        {
-            Payments.Add(payment);
-            Console.WriteLine("Payment added successfully.");
-        }
-
     }
 }

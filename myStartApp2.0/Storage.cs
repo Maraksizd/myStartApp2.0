@@ -6,12 +6,9 @@ namespace myStartApp2._0
 {
     public class Storage
     {
-        private string _fileName = "";
-        private string _filePath = "";
-
         public static void Load(string data)
         {
-            string filePath = "\"D:\\c#\\myStartApp2.0\\Data.txt\"";
+            string filePath = "D:\\c#\\myStartApp2.0\\Data.txt";
 
             try
             {
@@ -28,10 +25,33 @@ namespace myStartApp2._0
             }
         }
 
-        public static string UpLOad()
+        public static string UpLoad()
         {
-            // TODO Load data from file 
             var data = "";
+
+            string filePath = "D:\\c#\\myStartApp2.0\\Data.txt";
+
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("Error. File not found!");
+            }
+            else
+            {
+                try
+                {
+                    // Зчитуємо вміст файлу у змінну data
+                    data = File.ReadAllText(filePath);
+
+                    // Виводимо зчитані дані на екран
+                    Console.WriteLine("File content:");
+                    Console.WriteLine(data);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error reading file:" + ex.Message);
+                }
+            }
+
             return data;
         }
 

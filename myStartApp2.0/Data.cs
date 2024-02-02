@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.Json;
-using System.Xml.Linq;
 
 namespace myStartApp2._0
 {
@@ -9,22 +7,16 @@ namespace myStartApp2._0
     {
         public List<Client> Clients { get; set; }
 
-        
-        public static Data Create(Client client)
+        public static void Serialize(Client client)
         {
-            Data data = new Data { Client = client, Payment = payment };
-            return data;
-        }
-        public static void Save(Data data)
-        {
-            var serialized = JsonSerializer.Serialize(data);
-            Storage.Save(serialized);
+            var serialized = JsonSerializer.Serialize(client);
+            Storage.Load(serialized);
         }
 
-        public static List<Client> Read()
+        public static List<Client> Deserialize()
         {
-            var data = Storage.Load();
-            var clients = JsonSerializer.Deserialize<List<Client>>(data);
+            var client = Storage.UpLoad();
+            var clients = JsonSerializer.Deserialize<List<Client>>(client);
             return clients;
         }
 

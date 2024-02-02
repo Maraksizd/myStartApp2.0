@@ -4,7 +4,7 @@
     {
         private const string WaterName = "water";
         private const string WaterUnitsType = "m^3";
-        public Water(double unitPrice, string company):base()
+        public Water(double unitPrice, string company)
         {
             ServiceName = WaterName;
             UnitPrice = unitPrice;
