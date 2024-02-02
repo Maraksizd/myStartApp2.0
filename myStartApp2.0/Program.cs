@@ -28,7 +28,7 @@ namespace myStartApp2._0
             {
                 case 1:
                     int isValid = 0;
-                    int permissionToSave = 0;
+                    int permissionToSave;
 
 
                     while (isValid==0)

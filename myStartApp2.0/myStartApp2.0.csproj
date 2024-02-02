@@ -71,7 +71,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddingPayment.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="Payment.cs" />
