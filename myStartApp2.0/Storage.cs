@@ -6,22 +6,45 @@ namespace myStartApp2._0
 {
     public class Storage
     {
+        private const string FilePath = "D:\\c#\\myStartApp2.0\\Data.txt";
+
+        public static bool FileExists(string filePath)
+        {
+            return File.Exists(filePath);
+        } // перевірка на наявньсьть такого файлу
+
+        public static void DeleteFail(string path)
+        {
+            File.Delete(path);
+            Console.WriteLine("File delete");
+        }
+
+        public static void CreatFail(string path)
+        {
+            File.Create(path).Close();
+            Console.WriteLine("File created");
+        }
+
         public static void Load(string data)
         {
-            string filePath = "D:\\c#\\myStartApp2.0\\Data.txt";
-
-            try
+            if (FileExists(FilePath))
             {
-                // Текст для додавання
-                string contentToAdd = data;
+                Console.WriteLine("Файл за вказаною адресею існує, виконуємо завантаження...");
 
-                // Додавання тексту до існуючого файлу
-                File.AppendAllText(filePath, contentToAdd);
+                File.AppendAllText(FilePath, data);
+
                 Console.WriteLine("Текст додано до файлу успішно!");
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine("Помилка: " + ex.Message);
+                Console.WriteLine("Файл за вказаною адресею Не існує, створюємо файл...");
+
+                CreatFail(FilePath);
+
+                Console.WriteLine("Виконуємо завантаження...");
+                File.AppendAllText(FilePath, data);
+
+                Console.WriteLine("Текст додано до файлу успішно!");
             }
         }
 
@@ -29,27 +52,23 @@ namespace myStartApp2._0
         {
             var data = "";
 
-            string filePath = "D:\\c#\\myStartApp2.0\\Data.txt";
-
-            if (!File.Exists(filePath))
+            if (File.Exists(FilePath))
             {
-                Console.WriteLine("Error. File not found!");
+                Console.WriteLine("Файл існує.");
+
+                data = File.ReadAllText(FilePath);
+                
+                if (data.Length < 104)
+                {
+                    Console.WriteLine("Fatal error, file void");
+                }
+
+                //Storage.DeleteFail("D:\\c#\\myStartApp2.0\\Data.txt");
+
             }
             else
             {
-                try
-                {
-                    // Зчитуємо вміст файлу у змінну data
-                    data = File.ReadAllText(filePath);
-
-                    // Виводимо зчитані дані на екран
-                    Console.WriteLine("File content:");
-                    Console.WriteLine(data);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error reading file:" + ex.Message);
-                }
+                Console.WriteLine("Файл не знайдений.");
             }
 
             return data;

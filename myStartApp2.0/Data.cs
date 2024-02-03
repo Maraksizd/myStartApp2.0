@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.Json;
 
 namespace myStartApp2._0
@@ -15,8 +16,9 @@ namespace myStartApp2._0
 
         public static List<Client> Deserialize()
         {
-            var client = Storage.UpLoad();
-            var clients = JsonSerializer.Deserialize<List<Client>>(client);
+            string client = Storage.UpLoad();
+            Console.WriteLine(client);
+           List<Client> clients = JsonSerializer.Deserialize<List<Client>>(client);
             return clients;
         }
 

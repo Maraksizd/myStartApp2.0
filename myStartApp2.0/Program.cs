@@ -16,7 +16,7 @@ namespace myStartApp2._0
             Console.WriteLine("Доброго дня!");
             Console.WriteLine("Ввас вітає наша програма!");
 
-            Client myClient = Client.Create();
+            Client myClient = Client.InitializationClient();
 
             Console.WriteLine("Щоб розпочати роботу виберіть метод роботи:");
             Console.WriteLine("1. Додати показник");
@@ -68,7 +68,8 @@ namespace myStartApp2._0
 
 
                 case 2:
-                    //analitics
+                    var data = Data.Deserialize();
+                    Console.WriteLine(data);
                     break;
 
                 default:

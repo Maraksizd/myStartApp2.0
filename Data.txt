@@ -1,1 +1,1 @@
-{"Name":"123","Address":"123","Payments":[{"Date":"123","AmountUsage":123,"TotalPrice":123,"Service":{"ServiceName":"water","UnitPrice":123,"UnitType":"m^3","Company":"123"}}]}
+{"Name":"123","Address":"123","Payments":[{"Date":"3","AmountUsage":123,"TotalPrice":123,"Service":{"ServiceName":"water","UnitPrice":123,"UnitType":"m^3","Company":"12"}}]}

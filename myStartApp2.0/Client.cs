@@ -8,7 +8,7 @@ namespace myStartApp2._0
         public string Name { get; set; }
         public string Address { get; set; }
         public List<Payment> Payments { get; set; }
-        public static Client Create()
+        public static Client InitializationClient()
         {
             Client client = new Client();
 
