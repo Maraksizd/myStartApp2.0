@@ -19,50 +19,39 @@ namespace myStartApp2._0
             Console.WriteLine("File delete");
         }
 
-        public static void CreatFail(string path)
+        public static void CreateFile(string path)
         {
             File.Create(path).Close();
             Console.WriteLine("File created");
         }
 
-        public static void Load(string data)
+        public static void Save(string data)
         {
-            if (FileExists(FilePath))
+            if (!FileExists(FilePath))
             {
-                Console.WriteLine("Файл за вказаною адресею існує, виконуємо завантаження...");
-
-                File.AppendAllText(FilePath, data);
-
-                Console.WriteLine("Текст додано до файлу успішно!");
+                CreateFile(FilePath);
+                Console.WriteLine("Виконуємо запис...");
             }
-            else
-            {
-                Console.WriteLine("Файл за вказаною адресею Не існує, створюємо файл...");
-
-                CreatFail(FilePath);
-
-                Console.WriteLine("Виконуємо завантаження...");
-                File.AppendAllText(FilePath, data);
-
-                Console.WriteLine("Текст додано до файлу успішно!");
-            }
+            
+            File.WriteAllText(FilePath, data);
+            Console.WriteLine("Текст додано до файлу успішно!");
         }
 
-        public static string UpLoad()
+        public static string Load()
         {
-            var data = "";
-
             if (File.Exists(FilePath))
             {
                 Console.WriteLine("Файл існує.");
 
-                data = File.ReadAllText(FilePath);
-                
+                var data = File.ReadAllText(FilePath);
+
                 if (data.Length < 104)
                 {
                     Console.WriteLine("Fatal error, file void");
+                    return "";
                 }
 
+                return data;
                 //Storage.DeleteFail("D:\\c#\\myStartApp2.0\\Data.txt");
 
             }
@@ -71,7 +60,7 @@ namespace myStartApp2._0
                 Console.WriteLine("Файл не знайдений.");
             }
 
-            return data;
+            return "";
         }
 
     }

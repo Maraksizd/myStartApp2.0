@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text.Json;
 
 namespace myStartApp2._0
 {
     public class Data
     {
-        public List<Client> Clients { get; set; }
+        public List<Client> ClientsList { get; set; }
 
-        public static void Serialize(Client client)
+        public static void Serialize(Data data)
         {
-            var serialized = JsonSerializer.Serialize(client);
-            Storage.Load(serialized);
+            var serialized = JsonSerializer.Serialize(data);
+            Storage.Save(serialized);
         }
 
         public static List<Client> Deserialize()

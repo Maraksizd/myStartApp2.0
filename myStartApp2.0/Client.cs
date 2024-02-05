@@ -5,13 +5,14 @@ namespace myStartApp2._0
 {
     public class Client
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public List<Payment> Payments { get; set; }
-        public static Client InitializationClient()
+        public static Client InitializationClient(int id)
         {
             Client client = new Client();
-
+            client.Id = id;
             Console.WriteLine("Введіть своє імя:");
             string name = Console.ReadLine();
             client.Name = name;

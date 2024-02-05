@@ -1,5 +1,7 @@
 ﻿//main fail
 using System;
+using System.Collections.Generic;
+using System.Text.Json;
 
 
 namespace myStartApp2._0
@@ -9,14 +11,53 @@ namespace myStartApp2._0
     {
         static int Main()
         {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
-            Console.InputEncoding = System.Text.Encoding.UTF8;
 
 
             Console.WriteLine("Доброго дня!");
             Console.WriteLine("Ввас вітає наша програма!");
 
-            Client myClient = Client.InitializationClient();
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.InputEncoding = System.Text.Encoding.UTF8;
+
+            int clientId = 0;
+            int clientChoise = 0;
+            Data data = Data.Deserialize();
+
+            Console.WriteLine("Ви бажаєте створити нового клієнта, чи працювати з наявним?");
+            Console.WriteLine("1-Створити нового");
+            Console.WriteLine("2-Вибрати наявного");
+
+            clientChoise = Int32.Parse(Console.ReadLine());
+
+            switch (clientChoise)
+            {
+                case 1:
+                    if (data.ClientsList != null)
+                    {
+                        clientId = data.ClientsList.Count - 1;
+
+                    }
+
+                    Client curentClient = Client.InitializationClient(clientId);
+                    data.ClientsList.Add(curentClient);
+                  
+                    break;
+
+                case 2:
+                    Console.WriteLine("Список наявних клієнтів:");
+                    for (int i = 0; data.ClientsList.Count > i; i++)
+                    {
+                        Console.WriteLine(data.ClientsList[i].Id + " " + data.ClientsList[i].Name);
+                    }
+                    Console.WriteLine("Виберіть бажаного клієнта:");
+
+                    clientId=int .Parse(Console.ReadLine());
+                    break;
+
+                default:
+                    Console.WriteLine("Данні введенно не коректно!");
+                    break;
+            }
 
             Console.WriteLine("Щоб розпочати роботу виберіть метод роботи:");
             Console.WriteLine("1. Додати показник");
@@ -31,13 +72,13 @@ namespace myStartApp2._0
                     int permissionToSave;
 
 
-                    while (isValid==0)
+                    while (isValid == 0)
                     {
                         var service = Service.MakeService();
 
                         Payment payment = Payment.Create(service);
 
-                        myClient.Payments.Add(payment);
+                        data.ClientsList[clientId].Payments.Add(payment);
 
                         Console.WriteLine("Введіть 1 якщо ви хочете додати ще один показник");
                         Console.WriteLine("Введіть 2 якщо ви задоволенні роботою:");
@@ -51,7 +92,7 @@ namespace myStartApp2._0
 
                     if (permissionToSave == 1)
                     {
-                        Data.Serialize(myClient);
+                        Data.Serialize(data);
                     }
                     else if (permissionToSave == 2)
                     {
@@ -66,6 +107,8 @@ namespace myStartApp2._0
 
                     break;
 
+                case 2:
+                    
 
                 case 2:
                     var data = Data.Deserialize();
