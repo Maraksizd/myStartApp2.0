@@ -70,6 +70,7 @@ namespace myStartApp2._0
                 case 2:
                     var data = Data.Deserialize();
                     Console.WriteLine(data);
+
                     break;
 
                 default:

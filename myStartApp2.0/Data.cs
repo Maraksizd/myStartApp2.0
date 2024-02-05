@@ -17,9 +17,17 @@ namespace myStartApp2._0
         public static List<Client> Deserialize()
         {
             string client = Storage.UpLoad();
-            Console.WriteLine(client);
-           List<Client> clients = JsonSerializer.Deserialize<List<Client>>(client);
-            return clients;
+
+            try
+            {
+                List<Client> clients = JsonSerializer.Deserialize<List<Client>>(client);
+                return clients;
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine($"Помилка десеріалізації JSON: {ex.Message}");
+                return null; // або обробте помилку в інший спосіб
+            }
         }
 
 
