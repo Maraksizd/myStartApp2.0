@@ -15,13 +15,13 @@ namespace myStartApp2._0
             Storage.Save(serialized);
         }
 
-        public static List<Client> Deserialize()
+        public static Data Deserialize()
         {
-            string client = Storage.UpLoad();
+            string client = Storage.Load();
 
             try
             {
-                List<Client> clients = JsonSerializer.Deserialize<List<Client>>(client);
+                Data clients = JsonSerializer.Deserialize<Data>(client);
                 return clients;
             }
             catch (JsonException ex)

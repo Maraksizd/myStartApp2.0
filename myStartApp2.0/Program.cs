@@ -20,7 +20,7 @@ namespace myStartApp2._0
             Console.InputEncoding = System.Text.Encoding.UTF8;
 
             int clientId = 0;
-            int clientChoise = 0;
+            int clientChoise;
             Data data = Data.Deserialize();
 
             Console.WriteLine("Ви бажаєте створити нового клієнта, чи працювати з наявним?");
@@ -108,11 +108,7 @@ namespace myStartApp2._0
                     break;
 
                 case 2:
-                    
-
-                case 2:
-                    var data = Data.Deserialize();
-                    Console.WriteLine(data);
+                   
 
                     break;
 
@@ -120,7 +116,6 @@ namespace myStartApp2._0
                     Console.WriteLine("chooseMethod must be 1 or 2.");
                     break;
             }
-
             return 0;
         }
 
