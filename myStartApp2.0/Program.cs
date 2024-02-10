@@ -1,67 +1,31 @@
 ﻿//main fail
 using System;
-using System.Collections.Generic;
-using System.Text.Json;
-
 
 namespace myStartApp2._0
 {
-
     internal class Program
     {
         static int Main()
         {
-
-
-            Console.WriteLine("Доброго дня!");
-            Console.WriteLine("Ввас вітає наша програма!");
-
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.InputEncoding = System.Text.Encoding.UTF8;
 
-            int clientId = 0;
-            int clientChoise;
-            Data data = Data.Deserialize();
+            Console.WriteLine("Доброго дня!");
+            Console.WriteLine("Вас вітає наша програма!");
 
-            Console.WriteLine("Ви бажаєте створити нового клієнта, чи працювати з наявним?");
-            Console.WriteLine("1-Створити нового");
-            Console.WriteLine("2-Вибрати наявного");
+            Data data = Data.InitTestData(); //створюємо тестову дату
 
-            clientChoise = Int32.Parse(Console.ReadLine());
+            Client currentClient = Client.ManageClientSelection(data);
 
-            switch (clientChoise)
+            if (currentClient == null)
             {
-                case 1:
-                    if (data.ClientsList != null)
-                    {
-                        clientId = data.ClientsList.Count - 1;
-
-                    }
-
-                    Client curentClient = Client.InitializationClient(clientId);
-                    data.ClientsList.Add(curentClient);
-                  
-                    break;
-
-                case 2:
-                    Console.WriteLine("Список наявних клієнтів:");
-                    for (int i = 0; data.ClientsList.Count > i; i++)
-                    {
-                        Console.WriteLine(data.ClientsList[i].Id + " " + data.ClientsList[i].Name);
-                    }
-                    Console.WriteLine("Виберіть бажаного клієнта:");
-
-                    clientId=int .Parse(Console.ReadLine());
-                    break;
-
-                default:
-                    Console.WriteLine("Данні введенно не коректно!");
-                    break;
-            }
+                Console.WriteLine("Клієнт не вибраний або не створений.");
+                return 0;
+            }   //перевірка чи клієнта обрано і чи він створений
 
             Console.WriteLine("Щоб розпочати роботу виберіть метод роботи:");
             Console.WriteLine("1. Додати показник");
-            Console.WriteLine("2. Переглянути статистику");
+            Console.WriteLine("2. Аналітика");
 
             int chooseMethod = Convert.ToInt32(Console.ReadLine());
 
@@ -71,24 +35,24 @@ namespace myStartApp2._0
                     int isValid = 0;
                     int permissionToSave;
 
-
                     while (isValid == 0)
                     {
                         var service = Service.MakeService();
-
                         Payment payment = Payment.Create(service);
 
-                        data.ClientsList[clientId].Payments.Add(payment);
+                        currentClient.Payments.Add(payment);
 
-                        Console.WriteLine("Введіть 1 якщо ви хочете додати ще один показник");
-                        Console.WriteLine("Введіть 2 якщо ви задоволенні роботою:");
+                        Console.WriteLine("Введіть 1, якщо ви хочете додати ще один показник");
+                        Console.WriteLine("Введіть 2, якщо ви задоволені роботою:");
+
                         isValid = Int32.Parse(Console.ReadLine());
                     }
-                    Console.WriteLine("Зберегти данні?");
+
+                    Console.WriteLine("Зберегти дані?");
                     Console.WriteLine("1-так");
                     Console.WriteLine("2-ні");
-                    permissionToSave = Int32.Parse(Console.ReadLine());
 
+                    permissionToSave = Int32.Parse(Console.ReadLine());
 
                     if (permissionToSave == 1)
                     {
@@ -100,24 +64,43 @@ namespace myStartApp2._0
                     }
                     else
                     {
-                        Console.WriteLine("Данні були введені не коректно!");
+                        Console.WriteLine("Дані були введені некоректно!");
                         return 0;
                     }
-                    //load data to txt
 
                     break;
 
                 case 2:
-                   
+                    int choiseMethodStatistaic = 0;
+                    Console.WriteLine("Виберіть:");
+                    Console.WriteLine("1) Вивід статистики");
+                    Console.WriteLine("2) Перегляд оплат");
+                    choiseMethodStatistaic= Int32.Parse(Console.ReadLine());
 
+                    switch (choiseMethodStatistaic)
+                    {
+                        case 1:
+                            DataAnalytics.Stats(currentClient);
+                            break;
+
+                        case 2:
+                            DataAnalytics.PrintInfo(currentClient);
+                            break;
+
+                        default:
+                            Console.WriteLine("Помилка вибору");
+                            return 0;
+                            break;
+                    }
                     break;
 
                 default:
-                    Console.WriteLine("chooseMethod must be 1 or 2.");
+                    Console.WriteLine("Метод повинен бути 1 або 2.");
                     break;
             }
             return 0;
         }
+
 
     }
 }

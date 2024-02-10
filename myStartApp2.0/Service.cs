@@ -32,11 +32,11 @@ namespace myStartApp2._0
                     break;
 
                 case 2:
-                    // випадок 2
+                    service = new Gas(unitsPrice, coompany);
                     break;
 
                 case 3:
-                    // випадок 3
+                    service = new Electricity(unitsPrice, coompany);
                     break;
 
                 default:
